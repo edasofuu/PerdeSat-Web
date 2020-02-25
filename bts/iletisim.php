@@ -1,0 +1,168 @@
+<?php
+include("inc/vt.php"); // veritabanı bağlantımızı sayfamıza ekliyoruz. 
+
+session_start(); //oturum başlattık
+
+//eğer mevcut oturum varsa sayfayı yönlendiriyoruz.
+if (isset($_SESSION["Oturum"]) && $_SESSION["Oturum"] == "6789") {
+    $link = "logout.php";
+	$buton = "Çıkış";
+	
+	$sorgu = $baglanti->query("select kadi from kullanicilar");
+
+    //Kullanıcı adlarını döngü yardımı ile tek tek elde ediyoruz
+    while ($sonuc = $sorgu->fetch_assoc()) {
+        //eğer bizim belirlediğimiz yapıya uygun kullanıcı var mı diye bakıyoruz.
+        
+			
+            //oturum oluşturma buradaki değerleri güvenlik açısından
+            //farklı değerler yapabilirsiniz
+            //aynı zamanda kullanıcı adınıda burada tuttum
+            $_SESSION["Oturum"] = "6789";
+	$_SESSION["kadi"] = $sonuc['kadi'];
+$kullanici = $_SESSION['kadi'];	}
+	}
+	else
+	{
+	$link = "signin.php";
+	$buton = "Giriş Yap";
+$kullanici = "" ;
+	}
+?>
+ <!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+ .form-giris {
+	 margin-top:100px;
+ }
+	
+	body{
+		height:1024px;
+		width:%100;
+		background-image:url(2.png);
+		background-repeat: no-repeat;
+		background-position:center;
+		background-attachment:fixed;
+	}
+	.kullanicim{
+		color:grey;
+	}
+</style>
+	
+    <title>İletişim</title>
+  </head>
+ 
+  
+  <body class="text-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <image src="1.png" width="30px" height="30px" class="navbar-brand" />
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="index.php#">Home <span class="sr-only">(current)</span></a>
+      </li>
+	  <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="urunler.php#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          ÜRÜNLER
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="urun1.php#">Ürün 1</a>
+          <a class="dropdown-item" href="urun2.php#">Ürün 2</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="urun3.php#">Ürün 3</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="hakkinda.php#">Hakkımızda</a>
+      </li>
+	  <li class="nav-item">
+        <a class="nav-link" href="misyon.php#">Misyon&Vizyon</a>
+      </li>
+	  <li class="nav-item">
+        <a class="nav-link" href="iletisim.php#">İletişim</a>
+      </li>
+	   
+    </ul>
+	<table>
+    
+      <tr>
+	  <td class="kullanicim" ><?php echo $kullanici ;?></td>
+	  <td>
+	  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"></td>
+	  <td><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></td>	  
+	
+
+	 <td><a href= "<?php echo $link ;?>#"><button class="btn btn-outline-success my-2 my-sm-0" type="submit"><?php echo $buton;?></button></a></td>
+	 </tr>
+     </table>
+  </div>
+</nav> 
+
+<!-- Formumuzu oluşturuyoruz-->
+<form class="form-giris" id="form1" method="post">
+    <div class="row align-content-center justify-content-center ">
+        <div class="col-md-3 kutu">
+          
+            <table class="table">
+                <tr>
+                    <td>
+                        <!-- Kullanıcı adı form gönderildiğinde kaybolmasın diye value ya ekliyoruz-->
+                        <input type="text" ID="txtKadi" name="txtKadi" class="form-control" placeholder="Gönderen"/>
+
+                    </td>
+                </tr>
+				 <tr>
+                    <td>
+                        <!-- Kullanıcı adı form gönderildiğinde kaybolmasın diye value ya ekliyoruz-->
+                        <input type="text" ID="txtKadi" name="txtKadi" class="form-control" placeholder="Kime"/>
+
+                    </td>
+                </tr>
+				 <tr>
+                    <td>
+                        <!-- Kullanıcı adı form gönderildiğinde kaybolmasın diye value ya ekliyoruz-->
+                        <input type="text" ID="txtKadi" name="txtKadi" class="form-control" placeholder="Konu"/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea type="password" ID="txtParola" name="txtParola" class="form-control" placeholder="Lütfen mesajınızı girin..."></textarea>
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td class="text-center">
+                        <input type="submit" class="btn btn-outline-success" ID="btnGiris" value="Gönder"/>
+                  
+                       
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+ 
+  </body>
+ 
+ 
+   
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+   
+</html>
